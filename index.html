@@ -50,36 +50,36 @@
     <div class="container">
 
       <h1 class="title">
-        Visual JOIN
-        <span>Understand how joins work by interacting and see it visually</span>
+        Merge
+        <span>Jak funguje operace merge v Pandas</span>
       </h1>
 
       <div class="row joins clearfix">
         <div class="col-xs-3">
           <div class="join" ng-class="currentJoinClass('inner')" ng-click="selectJoin('inner')">
-            <h2 title="{{sql.inner}}">INNER JOIN</h2>
-            <div class="subtitle">(or JOIN)</div>
+            <h2 title="{{sql.inner}}">INNER</h2>
+            <div class="subtitle">&nbsp;</div>
             <svg id="inner"></svg>
           </div>
         </div>
         <div class="col-xs-3">
           <div class="join" ng-class="currentJoinClass('left')" ng-click="selectJoin('left')">
-            <h2>LEFT JOIN</h2>
+            <h2>LEFT</h2>
             <div class="subtitle">&nbsp;</div>
             <svg id="left"></svg>
           </div>
         </div>
         <div class="col-xs-3">
           <div class="join" ng-class="currentJoinClass('right')" ng-click="selectJoin('right')">
-            <h2>RIGHT JOIN</h2>
+            <h2>RIGHT</h2>
             <div class="subtitle">&nbsp;</div>
             <svg id="right"></svg>
           </div>
         </div>
         <div class="col-xs-3">
           <div class="join" ng-class="currentJoinClass('outer')" ng-click="selectJoin('outer')">
-            <h2>OUTER JOIN</h2>
-            <div class="subtitle">(with UNION)</div>
+            <h2>OUTER</h2>
+            <div class="subtitle">&nbsp;</div>
             <svg id="outer"></svg>
           </div>
         </div>
@@ -110,7 +110,7 @@
 
         <!-- Users -->
         <div class="col-sm-4">
-          <h3>Users</h3>
+          <h3>users</h3>
           <table>
             <tr>
               <th>ID</th>
@@ -130,7 +130,7 @@
 
         <!-- Join -->
         <div class="col-sm-4 joins-table">
-          <h3>JOIN</h3>
+          <h3>merged</h3>
           <table>
             <tr>
               <th class="user">Name</th>
@@ -145,7 +145,7 @@
 
         <!-- Likes -->
         <div class="col-sm-4">
-          <h3>Likes</h3>
+          <h3>likes</h3>
           <table>
             <tr>
               <th>User ID</th>

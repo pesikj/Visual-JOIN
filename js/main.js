@@ -6,19 +6,23 @@ function JoinsCtrl($scope) {
 
 
   $scope.users = [
-    { id: 1, name: 'Patrik' },
-    { id: 2, name: 'Albert' },
-    { id: 3, name: 'Maria' },
-    { id: 4, name: 'Darwin' },
-    { id: 5, name: 'Elizabeth' }
+    { id: 1, name: 'Aneta' },
+    { id: 2, name: 'Martina' },
+    { id: 3, name: 'Dan' },
+    { id: 4, name: 'Honza' },
+    { id: 5, name: 'Martin' },
+    { id: 6, name: 'Mirka' },
+    { id: 7, name: 'Jirka' },
+    { id: 8, name: 'Lenka' },
+    { id: 9, name: 'Verča' },
   ];
 
   $scope.likes = [
-    { user_id: 3, like: 'Stars' },
-    { user_id: 1, like: 'Climbing' },
-    { user_id: 1, like: 'Code' },
-    { user_id: 6, like: 'Rugby' },
-    { user_id: 4, like: 'Apples' }
+    { user_id: 3, like: 'Python' },
+    { user_id: 1, like: 'Pandas' },
+    { user_id: 2, like: 'Seaborn' },
+    { user_id: 10, like: 'Numpy' },
+    { user_id: 11, like: 'Matplotlib' }
   ];
 
   $scope.sql = {
@@ -27,22 +31,20 @@ function JoinsCtrl($scope) {
       $scope.sql.show_desc = $scope.sql.show_desc ? false : true;
     },
     inner: {
-      query: "SELECT users.name, likes.like FROM users JOIN likes ON users.id = likes.user_id;",
-      desc: "INNER JOIN or just JOIN retrieves all users and likes that match each other ( where the id field in users matches a user_id in the likes table and vice versa )"
+      query: "merged = pd.merge(users, likes, how=\"inner\", left_on=\"id\", right_on=\"user_id\")<br/>merged[\"name\",\"like\"]",
+      desc: "Při použití inner (nebo při vynechání parametru how) získáme všechny uživatele, kteří dali nějaký \"lajk\", a všechny \"lajky\", ke kterým máme záznam v tabulce uživatelů."
     },
     left: {
-      query: "SELECT users.name, likes.like FROM users LEFT JOIN likes ON users.id = likes.user_id;",
-      desc: "LEFT JOIN retrieves all users and its likes if there is any else sets NULL in the like field"
+      query: "merged = pd.merge(users, likes, how=\"left\", left_on=\"id\", right_on=\"user_id\")<br/>merged[\"name\",\"like\"]",
+      desc: "Při použití metody \"left\" získáme všechny uživatele bez ohledu na to, zda dali nějaký \"lajk\" či nikoliv, společně s všemi \"lajky\", které odpovídají uživatelům z tabulky users. To znamená, že pokud někteří uživatelé nedali žádný \"lajk\", budou i tak zahrnuti ve výsledné tabulce s hodnotami NaN v sloupcích odpovídajících tabulce \"likes\"."
     },
     right: {
-      query: "SELECT users.name, likes.like FROM users RIGHT JOIN likes ON users.id = likes.user_id;",
-      desc: "RIGHT JOIN is like LEFT JOIN but retrieves all likes with all matching users or NULL if it doesn't have any matching user"
+      query: "merged = pd.merge(users, likes, how=\"right\", left_on=\"id\", right_on=\"user_id\")<br/>merged[\"name\",\"like\"]",
+      desc: "Při použití metody \"right\" získáme všechny \"lajky\" spolu s odpovídajícími uživateli z levé tabulky, pokud existuje shoda mezi oběma tabulkami. Pokud některé \"lajky\" nemají odpovídajícího uživatele v tabulce \"users\", budou i tak zahrnuty ve výsledné tabulce, ale s hodnotami NaN v sloupcích odpovídajících tabulce \"users\"."
     },
     outer: {
-      query: "SELECT users.name, likes.like FROM users LEFT OUTER JOIN likes ON users.id = likes.user_id"+
-             "<br>UNION"+
-             "<br>SELECT users.name, likes.like FROM users RIGHT OUTER JOIN likes ON users.id = likes.user_id",
-      desc: "OUTER JOIN or OUTER LEFT and RIGHT with UNION (MySQL don't support FULL OUTER JOIN) retrieves all users and likes and matches them and sets NULL on any like without any match on user and same thing with user with no matching like"
+      query: "merged = pd.merge(users, likes, how=\"outer\", left_on=\"id\", right_on=\"user_id\")<br/>merged[\"name\",\"like\"]",
+      desc: "Při použití metody \"outer\" získáme všechny uživatele a všechny \"lajky\", nezávisle na tom, zda existuje mezi nimi shoda. To znamená, že pokud existují uživatelé bez \"lajků\" nebo \"lajky\" bez odpovídajících uživatelů, budou všechny tyto záznamy zahrnuty ve výsledné tabulce s hodnotami NaN v sloupcích, kde neexistuje shoda mezi tabulkami \"users\" a \"likes\"."
     }
   };
 
